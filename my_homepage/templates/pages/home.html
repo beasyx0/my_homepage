@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}{{title}}{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+<section class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="row text-secondary">
+            <div class="col-lg-4 col-md-12 col-sm-12 text-center">
+                <img src="{{about.pic.url}}" class="main-img shadow w-100 mb-4 rounded-circle img-scale" alt="Author image">
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <p class="mt-2 mb-0 h5">Hello, my name is</p>
+                <h1 class="mt-0 text-dark">{{about.name}}</h1>
+                <p>{{about.about|truncatechars:500|safe}} <a href="{% url 'about' %}">more about me</a></p>
+                <a href="#contact" class="btn btn-outline-info btn-lg">Hire Me</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="skills">
+    <div class="container">
+        <div class="mt-5 ml-auto mr-auto text-light text-center">
+            <h1 class="h2"><i class="fa fa-code"></i> Skills Overview</h1>
+            <p>{{skills_overview.overview}}</p>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="p-4 col-lg-4 col-md-4 col-sm-8 mt-5 mb-4 text-center">
+                <div class="card my-card text-muted">
+                    <i class="fa fa-database fa-2x" style="position:relative;bottom:20px;"></i>
+                    <h3>BackEnd:</h3>
+                    <ul class="list-unstyled">
+                        {% for skill in all_skills %}
+                            {% if skill.category == 'BACKEND' %}
+                                <li><a href="{{skill.link}}">{{skill.name}}</a> ({{skill.years_experience}} years exp)</li>
+                            {% endif %}                      
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="p-4 col-lg-4 col-md-4 col-sm-8 mt-5 mb-4 text-center">
+                <div class="card my-card text-muted">
+                    <i class="fa fa-html5 fa-2x" style="position:relative;bottom:20px;"></i>
+                    <h3>FrontEnd</h3>
+                    <ul class="list-unstyled">
+                        {% for skill in all_skills %}
+                            {% if skill.category == 'FRONTEND' %}
+                                <li><a href="{{skill.link}}">{{skill.name}}</a> ({{skill.years_experience}} years exp)</li>
+                            {% endif %}                      
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="p-4 col-lg-4 col-md-4 col-sm-8 mt-5 mb-5 text-center">
+                <div class="card my-card text-muted">
+                    <i class="fa fa-info fa-2x" style="position:relative;bottom:20px;"></i>
+                    <h3>Other</h3>
+                    <ul class="list-unstyled">
+                        {% for skill in all_skills %}
+                            {% if skill.category == 'OTHER' %}
+                                <li><a href="{{skill.link}}">{{skill.name}}</a> ({{skill.years_experience}} years exp)</li>
+                            {% endif %}                      
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="text-center">
+            <a href="{{about.github_link}}">Check out my code on GitHub <i class="fa fa-github"></i></a>
+        </p>
+    </div>
+</section>
+
+
+<section id="blog" class="my-bg mt-5">
+    <div class="container">
+        <div class="ml-auto mr-auto mt-5 mb-5 pt-5 pb-5 text-center">
+            <h1 class="h2 ml-2 text-secondary"><i class="fa fa-rss"></i> Latest Blogs</h1>
+            {% include "components/search-bar.html" %}
+            <div class="mt-5">
+                {% for post in latest_posts %}
+                    <div class="mt-5 mb-5 post">
+                        <small class="text-secondary">{{post.date}}</small>
+                        <a href="{{post.get_absolute_url}}?next={{canonical_path}}"><h2 class="h4">{{post.title}}</h2></a>
+                        <div class="mt-2">
+                            {% for tag in post.tags.all  %}
+                                <small class="p-1 text-muted">| <a href="{{tag.get_absolute_url}}?next={{canonical_path}}">{{tag}}</a> |</small>
+                            {% endfor %}
+                        </div>
+                        {% include "components/icons.html" %}
+                        <hr class="w-75">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="testimonials" class="mt-5">
+    <div class="container">
+
+        <div class="col-8 mt-5 ml-auto mr-auto text-light">
+            <h1 class="h2 text-center"><i class="fa fa-check"></i> Testimonials</h1>
+        </div>
+
+        <div class="row d-flex p-4 justify-content-between">
+            {% for testi in testimonials %}
+                <div class="col-lg-4 col-md-12 col-sm-12 mt-5 mb-5">
+                    <div class="card my-card p-4 text-secondary">
+                        <i class="fa fa-quote-left fa-2x text-info" style=""></i>
+                        <p>{{testi.comment|truncatechars:200}}</p>
+                        <small>- {{testi.name}}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#testimonial-modal">
+              Leave a testimonial
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="testimonial-modal" tabindex="-1" role="dialog" aria-labelledby="testimonial-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark">
+              <div class="modal-header">
+                <h5 class="modal-title text-light" id="testimonial-modal-label">Leave a testimonial</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" class="text-light">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{% url 'new-testimonial' %}" class="text-light bg-dark">
+                    {% csrf_token %}
+                    {{ testimonial_form|crispy }}
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6Lexte8aAAAAAGS5yA_ho42QweI4vpid3Jp-G-jx"></div>
+                    <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="contact" class="my-bg mt-5">
+    <div class="container">
+        <div class="ml-auto mr-auto mt-5 mb-5 pt-5 pb-5 text-secondary">
+            <h1 class="h2 text-center mb-5"><i class="fa fa-comments"></i> Contact</h1>
+
+            <section class="mb-4">
+
+                <div class="row">
+
+                    <div class="mb-4 col-md-3 text-center">
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fa fa-map-marker fa-2x"></i>
+                                <p><a href="https://www.google.com/maps/place/{{about.location}}">{{about.location}}</a></p>
+                            </li>
+
+                            <li><i class="fa fa-phone mt-4 fa-2x"></i>
+                                <p><a href="tel:{{about.phone}}">{{about.phone}}</a></p>
+                            </li>
+
+                            <li><i class="fa fa-envelope mt-4 fa-2x"></i>
+                                <p><a href="mailto:{{about.email}}">{{about.email}}</a></p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-9 mb-md-0 mb-5">
+                        <form id="contact-form" name="contact-form" action="{% url 'new-contact' %}" method="post">
+
+                            {% csrf_token %}
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="md-form mb-0">
+                                        {{new_contact_form.name}}
+                                        <label for="id_name" class="">Your name</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="md-form mb-0">
+                                        {{new_contact_form.email}}
+                                        <label for="id_email" class="">Your email</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-form mb-0">
+                                        {{new_contact_form.subject}}
+                                        <label for="id_subject" class="">Subject</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="md-form">
+                                        {{new_contact_form.content}}
+                                        <label for="id_content">Your message</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-center">
+                                    <div class="d-flex justify-content-start">
+                                        <script src='https://www.google.com/recaptcha/api.js'></script>
+                                        <div class="g-recaptcha" data-sitekey="6Lexte8aAAAAAGS5yA_ho42QweI4vpid3Jp-G-jx"></div>
+                                        <div class="ml-2">
+                                            <button type="submit" class="p-3 mt-1 btn btn-outline-info btn-lg">Send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <div class="status"></div>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+</section>
+
+
+<section class="mb-5 pb-2 text-light text-center">
+    <a href="#" onclick="scrollToTop()"><i class="mb-2 fa fa-arrow-up fa-2x text-info"></i></a>
+
+    <br>
+    <br>
+
+    <small>Made with <i class="fa fa-heart text-danger"></i> by {{about.name}}</small>
+
+    <br>
+    <br>
+
+    <small>Page generation: {{pageload}}ms</small>
+</section>
+
+
+{% endblock content %}
+
+
+{% block inline_javascript %}
+{% endblock inline_javascript %}

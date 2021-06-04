@@ -1,0 +1,67 @@
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    # http
+    address: ":80"
+    http:
+      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      redirections:
+        entryPoint:
+          to: web-secure
+
+  web-secure:
+    # https
+    address: ":443"
+
+certificatesResolvers:
+  letsencrypt:
+    # https://docs.traefik.io/master/https/acme/#lets-encrypt
+    acme:
+      email: "changeme@changeme.com"
+      storage: /etc/traefik/acme/acme.json
+      # https://docs.traefik.io/master/https/acme/#httpchallenge
+      httpChallenge:
+        entryPoint: web
+
+http:
+  routers:
+    web-secure-router:
+      rule: "Host(`changeme.com`) || Host(`www.changeme.com`)"
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+        - my-inflightreq
+        - my-ratelimit
+      service: django
+      tls:
+        # https://docs.traefik.io/master/routing/routers/#certresolver
+        certResolver: letsencrypt
+
+  middlewares:
+    csrf:
+      # https://docs.traefik.io/master/middlewares/headers/#hostsproxyheaders
+      # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
+      headers:
+        hostsProxyHeaders: ["X-CSRFToken"]
+    my-inflightreq:
+      inFlightReq:
+        amount: 10
+    my-ratelimit:
+      rateLimit:
+        average: 20
+
+  services:
+    django:
+      loadBalancer:
+        servers:
+          - url: http://django:5000
+
+providers:
+  # https://docs.traefik.io/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true
+        

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{title}}{% endblock title %}
+
+
+{% block content %}
+
+    <section id="post-details" class="text-light">
+        <div class="col-lg-8 col-md-10 ml-auto mr-auto mt-5 pt-5 pb-2">
+            {% include "components/search-bar.html" %}
+            <p class="mt-5"><small class="text-left">{{post.date}}</small></p>
+            <a href="{{post.get_absolute_url}}"><h2>{{post.title}}</h2></a>
+            <p class="text-center">{{post.content|safe}}</p>
+            <div class="text-center">
+                {% for tag in post.tags.all  %}
+                    <small class="p-1 text-muted">| <a href="{{tag.get_absolute_url}}?next={{canonical_path}}">{{tag}}</a> |</small>
+                {% endfor %}
+            </div>
+            {% include "components/icons.html" %}
+        </div>
+    </section>
+
+    <div class="col-4 m-auto p-4 text-center">
+        <a href="#" onclick="scrollToTop()"><i class="mb-2 fa fa-arrow-up fa-2x text-info"></i></a>
+        <br>
+        <br>
+        <a href="{{next_link}}">Back</a>
+        <br>
+        <br>
+        <small class="text-light">Page generation: {{pageload}}ms</small>
+    </div>
+
+{% endblock content %}

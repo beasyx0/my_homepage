@@ -1,0 +1,5 @@
+<form action="{% url 'search' %}" method="get" class="d-flex justify-content-center form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="search" name='q' placeholder="Full-text search" aria-label="Search">
+  <input type="hidden" id="next" name="next" value="{{canonical_path}}{% if search_term %}?q={{search_term}}{% endif %}">
+  <button class="btn btn-outline-info" type="submit"><i class="fa fa-search"></i> Search</button>
+</form>

@@ -1,0 +1,107 @@
+* {
+    font-family: 'KoHo', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+    color: #17a2b8;
+}
+
+a:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.icons li a .fa-reddit {
+    color: #FF5700;
+}
+
+.icons li a .fa-twitter {
+    color: rgb(29, 161, 242);
+}
+
+.icons li a .fa-y-combinator {
+    color: #ff6600;
+}
+
+.icons li a .fa-facebook {
+    color: #3b5998;
+}
+
+.img-scale:hover {
+    transform: scale(1.1);
+}
+
+.alert {
+    border-radius: 0;
+}
+
+.alert-debug {
+    color: black;
+    background-color: white;
+    border-color: #d6e9c6;
+}
+
+.alert-error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+.main-img {
+    max-width:300px;
+}
+
+.my-icons {
+    font-size: 20px;
+}
+
+.round-img {
+    border-radius: 200px;
+}
+
+.my-card, .my-bg{
+    background: #e9ecef;
+}
+
+.indentity {
+    margin: 0!important;
+}
+
+#div_id_name #id_name, #div_id_comment #id_comment {
+    background: #343a40!important;
+    color: #f8f9fa;
+}
+
+.about-page-ul li {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media screen and (max-width: 576px) {
+
+    #skills h1, #blog h1, #testimonials h1, #contact h1 {
+        font-size: 24px;
+    }
+    #skills h3 {
+        font-size: 22px;
+    }
+    #blog h2, #search-results h2, #tag-details h2 {
+       font-size: 22px;
+    }
+}
+@media screen and (max-width: 752px) {
+    
+    nav ul li {
+        margin-bottom: 24px;
+    }
+    nav ul:first-child  {
+        margin-top: 24px;
+    }
+    nav ul:last-child  {
+        margin-bottom: 24px;
+    }
+}
