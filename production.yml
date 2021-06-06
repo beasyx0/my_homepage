@@ -51,3 +51,5 @@ services:
       - ./.envs/.production/.django
     volumes:
       - production_postgres_data_backups:/backups:z
+
+# TODO: fix backup scripts to work w managed db
