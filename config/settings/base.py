@@ -1,18 +1,14 @@
-"""
-Base settings to build other settings files upon.
-"""
 from pathlib import Path
 
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# my_homepage/
+
 APPS_DIR = ROOT_DIR / "my_homepage"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
 
 # GENERAL
@@ -92,12 +88,6 @@ MIGRATION_MODULES = {"sites": "my_homepage.contrib.sites.migrations"}
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
-# https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-# AUTH_USER_MODEL = "users.User"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-# LOGIN_REDIRECT_URL = "users:redirect"
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-# LOGIN_URL = "account_login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -123,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    # "my_homepage.homepage.middleware.stats_middleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -185,7 +174,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "my_homepage.utils.context_processors.settings_context",
-                "my_homepage.utils.my_context.extra_context",
+                "my_homepage.utils.context_processors.extra_context",
             ],
         },
     }
@@ -228,7 +217,7 @@ EMAIL_TIMEOUT = 5
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""The Admin""", "changeme@changeme.com")]
+ADMINS = [("""Admin""", "b_easyx+myhomepage@protonmail.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -311,4 +300,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+# google recaptcha
+#-------------------------------------------------------------------------------------
 GOOGLE_RECAPTCHA_SECRET_KEY = env("GOOGLE_RECAPTCHA_SECRET_KEY")

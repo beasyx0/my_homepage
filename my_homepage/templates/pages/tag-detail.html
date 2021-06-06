@@ -8,32 +8,10 @@
         <div class="col-md-10 col-sm-12 ml-auto mr-auto mt-5 pt-5 pb-2 text-center">
             <h1 class="h2 ml-2"><i class="fa fa-rss"></i> Latest Blogs with tag {{tag.name}}</h1>
             {% include "components/search-bar.html" %}
-            <div class="col-12 mt-5">
-                {% for post in posts %}
-                    <div class="post">
-                        <small>{{post.date}}</small>
-                        <a href="{{post.get_absolute_url}}?next={{canonical_path}}"><h2 class="h4">{{post.title}}</h2></a>
-                        <div class="mt-2">
-                            {% for tag in post.tags.all  %}
-                                <small class="p-1 text-muted">| <a href="{{tag.get_absolute_url}}?next={{canonical_path}}">{{tag}}</a> |</small>
-                            {% endfor %}
-                        </div>
-                        {% include "components/icons.html" %}
-                        <hr class="w-75">
-                    </div>
-                {% endfor %}
-            </div>
+            {% include "components/post-list.html" %}
         </div>
     </section>
 
-    <div class="col-4 m-auto p-4 text-center">
-        <a href="#" onclick="scrollToTop()"><i class="mb-2 fa fa-arrow-up fa-2x text-info"></i></a>
-        <br>
-        <br>
-        <a href="{{next_link}}">Back</a>
-        <br>
-        <br>
-        <small class="text-light">Page generation: {{pageload}}ms</small>
-    </div>
+    {% include "components/footer.html" %}
 
 {% endblock content %}

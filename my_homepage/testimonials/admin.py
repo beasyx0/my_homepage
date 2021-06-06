@@ -19,6 +19,7 @@ class TestimonialAdmin(admin.ModelAdmin):
 
 
     def mark_testimonials_approved(self, request, queryset):
+        '''Marks selected testimonials approved or not approved depending on current choice'''
         for obj in queryset:
             if not obj.approved:
                 obj.approved = True

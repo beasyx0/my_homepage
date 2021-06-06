@@ -21,16 +21,16 @@ def search(request):
         if i not in punctuation:
             clean_search_term += i
 
-    results = Post.my_manager.search(clean_search_term)
+    posts = Post.my_manager.search(clean_search_term)
 
-    if not results:
+    if not posts:
         messages.error(request, f'Nothing found with the search term {clean_search_term}')
         return redirect('home')
 
     context = {
         'title': title,
         'search_term': clean_search_term,
-        'results': results,
+        'posts': posts,
     }
     return TemplateResponse(request, 'pages/search.html', context)
 

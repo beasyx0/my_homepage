@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.shortcuts import reverse
 
-
+# TODO: add test for post method error
 class TestHomePage(TestCase):
     '''Tests for homepage app'''
 

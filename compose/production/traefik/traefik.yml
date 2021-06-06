@@ -19,7 +19,7 @@ certificatesResolvers:
   letsencrypt:
     # https://docs.traefik.io/master/https/acme/#lets-encrypt
     acme:
-      email: "changeme@changeme.com"
+      email: "b_easyx+myhomepage@protonmail.com"
       storage: /etc/traefik/acme/acme.json
       # https://docs.traefik.io/master/https/acme/#httpchallenge
       httpChallenge:
@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`changeme.com`) || Host(`www.changeme.com`)"
+      rule: "Host(`my-app.live`) || Host(`www.my-app.live`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -64,4 +64,3 @@ providers:
   file:
     filename: /etc/traefik/traefik.yml
     watch: true
-        

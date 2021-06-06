@@ -1,0 +1,15 @@
+<div class="col-12 mt-5">
+    {% for post in posts %}
+        <div class="post">
+            <small>{{post.date}}</small>
+            <a href="{{post.get_absolute_url}}?next={{canonical_path}}"><h2 class="h4">{{post.title}}</h2></a>
+            <div class="mt-2">
+                {% for tag in post.tags.all  %}
+                    <small class="p-1 text-muted">| <a href="{{tag.get_absolute_url}}?next={{canonical_path}}">{{tag}}</a> |</small>
+                {% endfor %}
+            </div>
+            {% include "components/icons.html" %}
+            <hr class="w-75">
+        </div>
+    {% endfor %}
+</div>

@@ -1,10 +1,6 @@
 <ul class="icons d-flex justify-content-center pt-2 pr-0 pb-0 pl-0">
     <li class="list-inline-item pt-0 pr-2 pb-0 pl-0"><a href="http://www.reddit.com/submit?url=https://www.{{my_site}}{% url 'post-detail' slug=post.slug %}&title={{post.title}}"><i class="fa fa-reddit fa-lg"></i></a></li>
-
     <li class="list-inline-item pt-0 pr-2 pb-0 pl-0"><a href="https://twitter.com/share?url=https://www.{{my_site}}{% url 'post-detail' slug=post.slug %}&text={{post.title}}&hashtags={% for tag in post.tags.all %}{{tag.name}},{% endfor %}"><i class="fa fa-twitter fa-lg"></i></a></li>
-
     <li class="list-inline-item pt-0 pr-2 pb-0 pl-0"><a href="http://news.ycombinator.com/submitlink?u=https://www.{{my_site}}{% url 'post-detail' slug=post.slug %}&t={{post.title}}"><i class="fa fa-y-combinator fa-lg"></i></a></li>
-
     <li class="list-inline-item pt-0 pr-0 pb-0 pl-0"><a href="http://www.facebook.com/sharer.php?u=https://www.{{my_site}}{% url 'post-detail' slug=post.slug %}"><i class="fa fa-facebook fa-lg"></i></a></li>
-
 </ul>

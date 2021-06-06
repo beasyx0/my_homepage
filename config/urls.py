@@ -12,6 +12,13 @@ from my_homepage.testimonials.views import new_testimonial
 from my_homepage.contact_me.views import new_contact
 
 
+# admin header, etc.
+admin.site.site_title = "My Homepage Admin"
+admin.site.site_header = "My Homepage Admin"
+admin.site.index_title = ""
+admin.site.enable_nav_sidebar = False
+
+
 urlpatterns = [
     path("", home, name="home"),
     path("search/", search, name='search'),

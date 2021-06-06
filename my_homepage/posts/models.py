@@ -23,7 +23,7 @@ def _get_unique_slug(string_to_slug: str):
 
 class Tag(models.Model):
     '''Tag model for posts'''
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, help_text='Tag name')
     slug = models.SlugField(editable=False, max_length=255, unique=True, null=True)
 
     def __str__(self):
@@ -45,9 +45,9 @@ class Post(models.Model):
     '''Simple post model with full text editor (tinymce4)'''
     date = models.DateTimeField(editable=False)
     slug = models.SlugField(editable=False, max_length=255, unique=True, null=True)
-    title = models.CharField(max_length=200, unique=True)
-    content = HTMLField()
-    tags = models.ManyToManyField(Tag, related_name='posts')
+    title = models.CharField(max_length=200, unique=True, help_text='Post title')
+    content = HTMLField(help_text='Post content')
+    tags = models.ManyToManyField(Tag, related_name='posts', help_text='Post tags')
     search_vector = SearchVectorField(null=True)
 
     objects = models.Manager()

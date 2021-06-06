@@ -4,7 +4,7 @@ from django.db import models
 
 class SkillsOverview(models.Model):
     '''Skill overview for homepage'''
-    overview = models.CharField(max_length=250)
+    overview = models.CharField(max_length=250, help_text='Overview of skills')
 
     def __str__(self):
         return self.overview[:80]

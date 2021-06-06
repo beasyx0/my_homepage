@@ -1,0 +1,16 @@
+<div class="col-4 m-auto p-4 text-center">
+    <a href="#" onclick="scrollToTop()"><i class="fa fa-arrow-up fa-2x text-info"></i></a>
+    {% if not next_link == '/' %}
+        <br>
+        <br>
+        <a href="{{next_link}}">Back</a>
+    {% endif %}
+    <br>
+    <br>
+    <small class="text-light">Made with <i class="fa fa-heart text-danger"></i> by {{about.name}}</small>
+    <br>
+    <br>
+    <small class="text-light">Page generation: {{pageload}}ms</small>
+    <br>
+    <br>
+</div>

@@ -8,25 +8,18 @@
     <section id="about-page" class="mt-5">
         <div class="container">
             <div class="row mb-5 text-light">
-                
                 <div class="col-md-8 col-sm-12 m-auto pb-4 text-center">
                     <img src="{{about.pic.url}}" class="mb-4 main-img img-fluid shadow rounded-circle img-scale" alt="Author image">
                     <h1>{{about.name}}</h1>
                 </div>
-
-                
-                
                 <div class="col-lg-10 m-auto pb-4">
                     {{about.about|safe}}
                 </div>
-
                 <div class="col-md-5 col-sm-10 m-auto text-center">
                     <ul class="list-unstyled about-page-ul h5">
-
                         <li>
                             <i class="mr-2 fa fa-phone fa-lg"></i><a href="tel:{{about.phone}}"> {{about.phone}}</a>
                         </li>
-
                         <li>
                             <i class="mr-2 fa fa-envelope fa-lg"></i><a href="mailto:{{about.email}}"> {{about.email}}</a>
                         </li>
@@ -38,19 +31,10 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <div class="col-4 m-auto p-4 text-center">
-        <a href="#" onclick="scrollToTop()"><i class="mb-2 fa fa-arrow-up fa-2x text-info"></i></a>
-        <br>
-        <br>
-        <div class="col-4 m-auto p-4 text-center"><a href="{% url 'home' %}">Back</a></div>
-        <br>
-        <br>
-        <small class="text-light">Page generation: {{pageload}}ms</small>
-    </div>
+    {% include "components/footer.html" %}
 
 {% endblock content %}
