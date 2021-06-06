@@ -1,4 +1,4 @@
 My Homepage
 ===========
 
-I have no idea what I'm doing
+A simple cutomizable homepage.
