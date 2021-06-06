@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   production_traefik: {}
+  production_postgres_data_backups: {}
 
 services:
   django: &django
