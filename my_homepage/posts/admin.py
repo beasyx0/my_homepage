@@ -25,7 +25,7 @@ class PostAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(PostAdmin, self).get_queryset(request)
-        qs = qs.defer('content',).prefetch_related('tags')
+        qs = qs.defer('content',).prefetch_related('tags').order_by('-date')
         return qs
 
 
@@ -33,4 +33,4 @@ class PostAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
     list_filter = ('name',)
-    search_fields = ['title', 'content',]
+    search_fields = ['name', 'content',]
