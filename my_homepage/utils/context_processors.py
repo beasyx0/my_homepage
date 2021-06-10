@@ -20,7 +20,7 @@ def extra_context(request):
         'about': About.objects.last(),
         'skills_overview': SkillsOverview.objects.last(),
         'all_skills': Skill.objects.values(),
-        'latest_posts': Post.objects.prefetch_related('tags').order_by('-date')[:5],
+        'posts': Post.objects.prefetch_related('tags').order_by('-date')[:5], # latest 5
         'testimonials': Testimonial.objects.order_by('-id').filter(approved=True)[:3],
         'testimonial_form': TestimonialForm(request.POST or None),
         'new_contact_form': NewContactForm(request.POST or None),

@@ -81,19 +81,12 @@ a:hover {
     padding-bottom: 20px;
 }
 
-@media screen and (max-width: 576px) {
+/*@media screen and (max-width: 576px) {
 
-    #skills h1, #blog h1, #testimonials h1, #contact h1 {
-        font-size: 24px;
-    }
-    #skills h3 {
-        font-size: 22px;
-    }
-    #blog h2, #search-results h2, #tag-details h2 {
-       font-size: 22px;
-    }
-}
-@media screen and (max-width: 752px) {
+    
+}*/
+
+@media screen and (max-width: 760px) {
     
     nav ul li {
         margin-bottom: 24px;
@@ -103,5 +96,17 @@ a:hover {
     }
     nav ul:last-child  {
         margin-bottom: 24px;
+    }
+    nav .fa-github {
+        margin-bottom: 10px;
+    }
+    #skills h1, #blog h1, #testimonials h1, #contact h1 {
+        font-size: 24px;
+    }
+    #skills h3 {
+        font-size: 20px;
+    }
+    #blog h2, #post-details a h2, #search-results h2, #tag-details h2 {
+       font-size: 22px;
     }
 }

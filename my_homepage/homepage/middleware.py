@@ -5,16 +5,18 @@ class StatsMiddleware:
     '''Middleware to inject pagload time in ms into context'''
     def __init__(self, get_response):
         self.get_response = get_response
-        self.start_time = time.time()
 
     def __call__(self, request):
+        '''This thing is broken. No way this is accurate. Need to figure out. Driving me crazzy'''
+        request.start = time.time()
         response = self.get_response(request)
         return response
 
     def process_template_response(self, request, response):
-        duration = round(time.time() - self.start_time, 2)
-        response.context_data["pageload"] = duration
+        duration = time.time() - request.start 
+        response.context_data["pageload"] = int(duration * 1000)
         return response
+
 
 
 class GetNextMiddleware:

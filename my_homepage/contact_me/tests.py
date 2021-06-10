@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core import mail
 from django.shortcuts import reverse
-
+from http import HTTPStatus
 from my_homepage.contact_me.models import NewContact
 
 
@@ -38,7 +38,19 @@ class TestNewContact(TestCase):
         r = self.client.post(new_contact_url, data)
 
         # if redirect then success
-        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.status_code, HTTPStatus.FOUND)
+
+        print('Finished')
+
+    def test_new_contact_post_url_get_not_allowed(self):
+        '''Tests new contact route get now allowed'''
+
+        print('Testing new contact post url get not allowed')
+
+        new_contact_url = reverse('new-contact')
+        r = self.client.get(new_contact_url)
+
+        self.assertEqual(r.status_code, HTTPStatus.METHOD_NOT_ALLOWED)
 
         print('Finished')
 

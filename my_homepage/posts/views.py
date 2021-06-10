@@ -1,11 +1,13 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template.response import TemplateResponse
+from django.views.decorators.http import require_GET, require_POST
 from django.contrib import messages
 
 from my_homepage.about_me.models import About
 from my_homepage.posts.models import Tag, Post
 
 
+@require_GET
 def search(request):
     '''Postgres full-text search. Uses model manager my_manager.search'''
     title = 'Search results'
@@ -35,6 +37,7 @@ def search(request):
     return TemplateResponse(request, 'pages/search.html', context)
 
 
+@require_GET
 def post_detail(request, slug):
     '''Post detail view'''
     title = 'Post Detail'
@@ -46,6 +49,7 @@ def post_detail(request, slug):
     return TemplateResponse(request, 'pages/post-detail.html', context)
 
 
+@require_GET
 def tag_detail(request, slug):
     '''Tag detail view'''
     title = 'Tag Detail'

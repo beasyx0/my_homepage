@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core import mail
 from django.shortcuts import reverse
 from django.utils import timezone
-
+from http import HTTPStatus
 from my_homepage.testimonials.models import Testimonial
 
 
@@ -21,7 +21,7 @@ class TestTestimonials(TestCase):
                 comment=data['comment'],
             )
 
-    def test_new_testimonial_post_url(self):
+    def test_new_testimonial_route_post(self):
         '''Tests for successful form submission by looking for redirect'''
 
         print('Testing new testimonial post url')
@@ -31,10 +31,23 @@ class TestTestimonials(TestCase):
         r = self.client.post(new_testimonial_url, data)
 
         # if redirect then success
-        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.status_code, HTTPStatus.FOUND)
 
         print('Finished')
 
+    def test_new_testimonial_route_get_not_allowed(self):
+        '''Tests new testimonial route get not allowed'''
+
+        print('Testing new testimonial route get not allowed')
+
+        new_testimonial_url = reverse('new-testimonial')
+
+        r = self.client.get(new_testimonial_url)
+
+        # if redirect then success
+        self.assertEqual(r.status_code, HTTPStatus.METHOD_NOT_ALLOWED)
+
+        print('Finished')
 
     def test_testinonial_save_and_str_method(self):
         '''Tests that a new Testimonial obj saves correctly'''

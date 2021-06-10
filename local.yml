@@ -1,6 +1,11 @@
 version: '3'
 
 
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+
 services:
   django: &django
     build:
@@ -8,6 +13,8 @@ services:
       dockerfile: ./compose/local/django/Dockerfile
     image: my_homepage_local_django
     container_name: django
+    depends_on:
+      - postgres
     volumes:
       - .:/app:z
     env_file:
@@ -16,6 +23,18 @@ services:
     ports:
       - "8000:8000"
     command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: my_homepage_production_postgres
+    container_name: postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
 
   docs:
     image: my_homepage_local_docs
@@ -43,7 +62,7 @@ services:
     container_name: celeryworker
     depends_on:
       - redis
-      - django
+      - postgres
     ports: []
     command: /start-celeryworker
 
@@ -53,6 +72,6 @@ services:
     container_name: celerybeat
     depends_on:
       - redis
-      - django
+      - postgres
     ports: []
     command: /start-celerybeat

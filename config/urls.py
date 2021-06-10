@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
-from my_homepage.homepage.views import home
+from my_homepage.homepage.views import home, robots_txt
 from my_homepage.about_me.views import about
 from my_homepage.posts.views import search, post_detail, tag_detail
 from my_homepage.testimonials.views import new_testimonial
@@ -21,6 +21,7 @@ admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path("", home, name="home"),
+    path("robots.txt", robots_txt, name="robots-txt"),
     path("search/", search, name='search'),
     path("post-detail/<slug>/", post_detail, name="post-detail",),
     path("tag-detail/<slug>/", tag_detail, name="tag-detail",),
