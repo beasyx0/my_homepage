@@ -21,7 +21,7 @@ admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path("", home, name="home"),
-    path("robots.txt", robots_txt, name="robots-txt"),
+    path("robots.txt/", robots_txt, name="robots-txt"),
     path("search/", search, name='search'),
     path("post-detail/<slug>/", post_detail, name="post-detail",),
     path("tag-detail/<slug>/", tag_detail, name="tag-detail",),
