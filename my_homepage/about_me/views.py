@@ -7,7 +7,7 @@ from my_homepage.about_me.models import About
 
 @require_GET
 def about(request):
-    '''About me page'''
+    '''About me page. All context is stored in utils/context_processors'''
     title = 'About Me'
     context = {
         'title': title,

@@ -8,15 +8,18 @@ class StatsMiddleware:
 
     def __call__(self, request):
         '''This thing is broken. No way this is accurate. Need to figure out. Driving me crazzy'''
-        request.start = time.time()
+        try:
+            request_start = request.start  # if it exists do nothing (__call__ gets called more than once)
+        except AttributeError:
+            request.start = time.time() #  record the time before the response is processed
+
         response = self.get_response(request)
         return response
 
     def process_template_response(self, request, response):
-        duration = time.time() - request.start 
-        response.context_data["pageload"] = int(duration * 1000)
+        duration = time.time() - request.start  # calculate duration
+        response.context_data["pageload"] = int(duration * 1000)  # add to context
         return response
-
 
 
 class GetNextMiddleware:

@@ -12,7 +12,7 @@ from my_homepage.testimonials.forms import TestimonialForm
 
 @require_GET
 def home(request):
-    '''Homepage view'''
+    '''Homepage view. All context is stored in utils/context_processors'''
     title = 'Home'
     context = {
         'title': title,
